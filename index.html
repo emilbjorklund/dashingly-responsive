@@ -35,7 +35,7 @@
       }
     }
     /* sticky footer, but only for modern flexbox implementations
-       (ugh, IE bugs.) */
+       (there be IE bugs.) */
     @supports (display: flex) {
       body {
         display: flex;
@@ -48,8 +48,8 @@
     }
 
     code {
-      font-family: monospace, monospace;
-      text-transform: none;
+      /* this trick is kinda weird: normalizes size of monospace fonts. */
+      font-family: monospace, monospace; 
     }
   
     a {
@@ -210,6 +210,9 @@
       margin: -.75em -.75em -.65em;
     }
     h1 :nth-child(2) {
+      /* weird one: Safari will not show the correct weight of Hoefler Text
+         without using the PostScript name below.
+         Thank FSM for Clagnut! http://clagnut.com/blog/2228 */
       font-family: 'HoeflerText-Regular', Hoefler Text, Times New Roman, Times, serif;
       text-transform: none;
       font-style: italic;
