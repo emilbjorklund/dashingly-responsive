@@ -110,6 +110,13 @@
     return morse;
   }
 
+  function setUpCheatLink() {
+    var root = document.createElement('div');
+    var tpl = get('#cheatlink');
+    root.innerHTML = tpl.innerHTML;
+    get('.wrap').appendChild(root);
+  }
+
   function setUpButtons() {
     var root = document.createElement('ul');
     var tpl = get('#buttons').innerHTML;
@@ -153,6 +160,7 @@
 
   var holder = get('#hold-the-telegraph');
   var morse = holder.innerText = setUpMorse();
+  setUpCheatLink();
 
   if ('AudioContext' in window || 'webkitAudioContext' in window) {
     var player = start();

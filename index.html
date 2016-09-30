@@ -341,11 +341,6 @@
 
         <p>Apart from these features, there’s all sorts of CSS trickery and little easter eggs going on for visual stuff. CSS Shapes, feature queries, SVG filters, gradient drawings… There’s a lot you can do with 10Kb! Have a look at the <a href="https://github.com/emilbjorklund/dashingly-responsive/">GitHub repository</a> to see what’s what.</p>
       </div>
-      
-    
-      <ul id="controls" aria-label="Control Morse code mode">
-        <li><a href="#cheatmode">Activate Cheat Mode for text</a></li>
-      </ul>
     </div>
 
     <div id="hold-the-telegraph"></div>
@@ -354,10 +349,16 @@
     <p>Hastily thought up and typed by Emil Björklund (<a href="https://twitter.com/thatemil">@thatemil</a>)</p>
   </footer>
   
-  
+  <!-- poor man's <template>s... -->
   <script id="buttons" type="text/x-template">
     <li><button id="play">Play audio</button></li>
     <li><button id="stop">Stop audio</button></li>
+  </script>
+
+  <script id="cheatlink" type="text/x-template">
+    <ul id="controls" aria-label="Control Morse code mode">
+      <li><a href="#cheatmode">Activate Cheat Mode for text</a></li>
+    </ul>
   </script>
 
   <script src="beep.js"></script>
