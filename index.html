@@ -365,7 +365,7 @@
 
   <svg height="0">
     <filter id="outlineglow">
-      <feMorphology in="SourceAlpha" operator="dilate" primitiveUnits="objectBoundingBox" radius="5" result="outline" />
+      <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="outline" />
       <feFlood flood-color="white" result="chroma"/>
       <feComposite in="chroma" in2="outline" operator="in" result="glow" />
       <feMerge>
