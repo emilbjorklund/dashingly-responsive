@@ -109,10 +109,10 @@
   }
 
   function setUpButtons() {
-    var root = document.createElement('div');
-    var tpl = get('#buttons');
-    root.innerHTML = tpl.innerHTML;
-    get('.wrap').appendChild(root);
+    var root = document.createElement('ul');
+    var tpl = get('#buttons').innerHTML;
+    var ctrls = get('#controls');
+    ctrls.innerHTML = tpl + ctrls.innerHTML;
   }
 
   
