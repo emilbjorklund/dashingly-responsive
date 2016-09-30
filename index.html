@@ -325,29 +325,33 @@
           <span>web page</span>
         </h1>
         <div class="prose">
-          <p>We can do beautiful work with the existing capabilities of the web platform. But the beauty does not lie just in the visual appearance of our sites, because the web is not just visual.</p>
+          <p class="intro">Morse code, and the Telegraph, were simple in design, but changed the world. The same goes for the Web. Today’s lesson is themed around dots and dashes.</p>
+          <hr>
+          <p>We can do beautiful work with the powerful capabilities of the web platform. But neither beauty nor power lie just in the visual appearance of our sites, because the web is not just visual. It’s universal.</p>
           <p>Take this simple web page, for instance. It is not just responsive on the standard ”240px plus” screens of smartphones (watches?) and up to the what-have-you widths of tablets, laptops, TVs and desktop screens.</p>
           <p>No, this one goes further: it actually sort of works on screens of <code>0px</code> and up.</p>
           <hr>
           <p><i>”Now hold on a minute”</i> I hear you say, <i>”since the web is not just visual, any web page can work as a printed page, or using a screen reader.”</i></p>
-          <p>True. But this one acheives its readability on viewports with a width of about <code>2em</code> and up <em>visually</em>, and does not require a screen reader or printer to work without a screen. Sort of.</p>
+          <p>True. But this one achieves its readability on viewports with a width of about <code>1em</code> (or so) and up <em>visually</em>, and does not require a screen reader or printer to work without a screen. Sort of.</p>
           <p>Let me explain:</p>
           <ul>
-            <li>On viewports less than <code>240px</code> in width, the text contents of the page are converted to <a href="https://en.wikipedia.org/wiki/Morse_code">Morse code</a>. This encoded is then displayed vertically instead of the page content. This only requires about one em of space. I can’t imagine what kind of smartphone would have a screen like that, but hey—nobody saw the iPhone coming either. Use your favorite devtools to resize down to that width, or hit <a href="#cheatmode">cheat mode</a>.</li>
-            <li>You can also hit the play button below to read that Morse code version of the page in audio form, provided you are using a reasonably modern browser. That’s right, this page can actually beepity-<a href="https://twitter.com/beep">beep</a>-itself using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Audio API</a> on supported devices (don’t forget to turn the volume up. Or down, if you’re in the quiet compartment of the train), without even having a functioning screen.</li>
+            <li>On viewports less than <code>240px</code> in width, the text contents of the page are converted to <a href="https://en.wikipedia.org/wiki/Morse_code">Morse code</a>. This encoded string of dashes and dots is then displayed vertically instead of the page content. This only requires about one em of space. I can’t imagine what kind of smartphone would have a screen like that, but hey—nobody saw the iPhone coming either. Use your favorite devtools to resize down to that width—or hit <a href="#cheatmode">cheat mode</a>.</li>
+            <li>You can also press the play/stop buttons (if visible) below to read that Morse code version of the page in audio form, provided you are using a reasonably modern browser. That’s right, this page can actually beepity-beep itself using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Audio API</a> on supported devices (don’t forget to turn the volume up. Or down, if you’re in the quiet compartment of the train), without even having a functioning screen.</li>
         </ul>
+
+        <p>Apart from these features, there’s all sorts of CSS trickery and little easter eggs going on for visual stuff. CSS Shapes, feature queries, SVG filters, gradient drawings… There’s a lot you can do with 10Kb! Have a look at the <a href="https://github.com/emilbjorklund/dashingly-responsive/">GitHub repository</a> to see what’s what.</p>
       </div>
       
+    
       <ul id="controls" aria-label="Control Morse code mode">
         <li><a href="#cheatmode">Activate Cheat Mode for text</a></li>
       </ul>
-    
     </div>
 
     <div id="hold-the-telegraph"></div>
   </main>
   <footer>
-    <p>Typed by Emil Björklund (<a href="https://twitter.com/thatemil">@thatemil</a>)</p>
+    <p>Hastily thought up and typed by Emil Björklund (<a href="https://twitter.com/thatemil">@thatemil</a>)</p>
   </footer>
   
   
