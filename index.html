@@ -15,16 +15,32 @@
     body {
       font-family: Georgia, serif;
       margin: 0;
+      padding-top: 1em;
       background-color: #fff;
+      color: rgba(0,0,0,0.9);
       font-size: calc(12px + 1vw);
       line-height: 1.4;
       overflow-x: hidden;
+      border-top: 1.5em solid #F2E4E2;
     }
     @media only screen and (min-width: 56.25em) {
       body {
         font-size: 1.3125em;
       }
     }
+    /* sticky footer, but only for modern flexbox implementations
+       (ugh, IE bugs.) */
+    @supports (display: flex) {
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex: 1;
+      }
+    }
+
     code {
       font-family: monospace, monospace;
       text-transform: none;
@@ -37,7 +53,7 @@
     footer {
       margin-top: 2em;
       padding: 1em;
-      background-color:  #F2F0D2;
+      background-color:  #F2E4E2;
     }
 
     footer p {
@@ -47,25 +63,79 @@
 
     button {
       display: inline-block;
+      text-align: center;
       border: 1px solid #142846;
-      border-radius: .125em;
-      padding: .25em .5em;
-      background-color: #274B7F;
+      border-radius: .25em;
+      padding: .25em 1em;
+      background-color: #43709F;
       color: #fff;
       font-size: inherit;
-      box-shadow: -.125em .125em 0 0em #142846;
+      box-shadow: 0 .125em 0 0em #7B99B5;
+      -webkit-transition: all .15s;
+      transition: all .15s;
+      will-change: transform;
     }
-    button + button {margin-left: 1em;}
+    button:active,
+    button:focus {
+      border-color: #000;
+      background-color: #033286;
+    }
+    button:active {
+      -webkit-transform: translateY(.125em);
+      transform: translateY(.125em);
+    }
 
     .wrap {
       width: 95%;
       margin: 0 auto;
       max-width: 100rem;
-      background-color: rgba(255,255,255,0.5);
     }
 
     .prose {
       max-width: 38em;
+    }
+    .prose p {
+      margin: 0;
+    }
+    .prose p + p {
+      text-indent: 1.5em;
+    }
+    .prose ul {
+      padding-left: 1.5em;
+      margin: 1.4em 0;
+    }
+    .prose li + li {
+      margin-top: 1.4em;
+    }
+
+    @supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
+      .prose p:first-of-type::first-letter {
+        -webkit-initial-letter: 3;
+        initial-letter: 3;
+        font-family: Avenir Next, Avenir, SegoeUI, sans-serif;
+        font-weight: 600;
+        color: #414956;
+        margin-right: .125em;
+      }
+    }
+    #controls {
+      background-color: #FAF3E7;
+      border-radius: 99em;
+      text-align: center;
+      margin: 0;
+      padding: 1.4em;
+      max-width: 38em;
+      line-height: 3;
+    }
+    #controls li {
+      list-style: none;
+      display: inline-block;
+    }
+    #controls li > * {
+      white-space: nowrap;
+    }
+    #controls li+li:not(:first-child) {
+      margin-left: 1.4em;
     }
     /* let's draw the characters ”www” using morse code, in gradients! */
     hr {
@@ -74,12 +144,12 @@
       width: 20em;
       height: 2em;
       border: 0;
-      background-image: radial-gradient(circle 1em at 18% 50%, #dae5ed 60%, transparent 0%),
-                        radial-gradient(circle 1em at 38% 50%, #dae5ed 60%, transparent 0%),
-                        radial-gradient(circle 1em at 60% 50%, #dae5ed 60%, transparent 0%),
-                        radial-gradient(circle 1em at 80% 50%, #dae5ed 60%, transparent 0%),
+      background-image: radial-gradient(circle 1em at 18% 50%, #dae5ed 40%, transparent 0%),
+                        radial-gradient(circle 1em at 38% 50%, #dae5ed 40%, transparent 0%),
+                        radial-gradient(circle 1em at 60% 50%, #dae5ed 40%, transparent 0%),
+                        radial-gradient(circle 1em at 80% 50%, #dae5ed 40%, transparent 0%),
                         linear-gradient(to right, #fff, #fff 60%, transparent 0%, transparent 80%, #fff 0%),
-                        linear-gradient(transparent, transparent .4em, #dae5ed 0%, #dae5ed 1.6em, transparent 0%);
+                        linear-gradient(transparent, transparent .6em, #dae5ed 0%, #dae5ed 1.41em, transparent 0%);
       background-size: 33% 100%;
     }
     
@@ -100,14 +170,12 @@
         margin-left: auto;
         margin-right: auto;
       }
-      .prose {
-        margin-top: 15%;
-      }
     }
 
     h1 * {
       display: inline-block;
       position: relative;
+      font-weight: 400;
       opacity: 0.8;
     }
 
@@ -123,9 +191,10 @@
       margin: -.75em -.75em -.65em;
     }
     h1 :nth-child(2) {
-      font-family: Hoefler Text, Times New Roman, Times, serif;
+      font-family: 'HoeflerText-Regular', Hoefler Text, Times New Roman, Times, serif;
       text-transform: none;
       font-style: italic;
+      font-weight: 200;
       margin-right: -.25em;
       font-size: 2.25em;
       top: -.04em;
@@ -168,14 +237,25 @@
     /* make the layout a tiny bit more interesting at larger viewports: */
     @media only screen and (min-width: 87.5em) {
       h1 {
-        shape-outside: polygon(0 0);
+        font-size: 5rem;
+        max-width: 50rem;
         float: right;
-        margin-top: 0%;
-        margin-left: 2em;
-        margin-top:  -2em;
+        margin-left: 1.6em;
+        margin-top: -1.7em;
       }
       .prose {
-        margin-top: 15%;
+        margin-top: 12em;
+      }
+      body {
+        background-image: radial-gradient(circle 70vh at bottom right, #F8FAFF, #F8FAFF 80%, transparent 0%);
+        background-attachment: fixed;
+      }
+    }
+
+    @media only screen and (min-width: 100em) {
+      h1 {
+        font-size: 6rem;
+        max-width: 60rem;
       }
     }
 
@@ -184,15 +264,17 @@
 
     /* hide this bit from browsers that don't understand MQ:s. */
     @media only all {
-      .wrap {
+      .wrap, footer {
         display:  none;
       }
       #hold-the-telegraph {
-        font-family: monospace,monospace;
+        font-family: monospace, monospace;
         white-space: pre;
         letter-spacing: .2em;
         overflow: visible;
+        -webkit-transform: translate(49vw) rotate(90deg);
         transform: translate(49vw) rotate(90deg);
+        -webkit-transform-origin: bottom left;
         transform-origin: bottom left;
       }
     }
@@ -201,7 +283,7 @@
       #hold-the-telegraph {
         display: none;
       }
-      .wrap {
+      .wrap, footer {
         display: block;
       }
     }
@@ -215,44 +297,46 @@
   </style>
 </head>
 <body id="cheatmode">
-    <div class="wrap">
+    <main>
+      <div class="wrap">
 
-      <h1 aria-label="A dashingly responsive web page">
-        <span class="inv" aria-hidden="true">A</span>
-        <span aria-hidden="true">dashingly</span>
-        <span class="inv" aria-hidden="true">responsive</span>
-        <span aria-hidden="true">web page</span>
-      </h1>
-      <div class="prose">
-        <p>We can do beautiful work with the existing capabilities of the web platform. But the beauty does not lie just in the visual appearance of our sites, because the web is not just visual.</p>
-        <p>Take this simple web page, for instance. It is not just responsive on the standard ”240px plus” screens of smartphones (watches?) and up to the what-have-you widths of tablets, laptops, TVs and desktop screens.</p>
-        <p>No, this one goes further: it actually sort of works on screens of <code>0px</code> and up.</p>
-        <hr>
-        <p><i>”Now hold on a minute”</i> I hear you say, <i>”since the web is not just visual, any web page can work as a printed page, or using a screen reader.”</i></p>
-        <p>True. But this one acheives its readability on viewports with a width of about <code>2em</code> and up <em>visually</em>, and does not require a screen reader or printer to work without a screen. Sort of.</p>
-        <p>Let me explain:</p>
-        <ul>
-          <li>On viewports less than <code>240px</code> in width, the text contents of the page are converted to <a href="https://en.wikipedia.org/wiki/Morse_code">Morse code</a>. This encoded is then displayed vertically instead of the page content. This only requires about one em of space. I can’t imagine what kind of smartphone would have a screen like that, but hey—nobody saw the iPhone coming either. Use your favorite devtools to resize down to that width, or hit <a href="#cheatmode">cheat mode</a>.</li>
-          <li>You can also hit the play button below to read that Morse code version of the page in audio form, provided you are using a reasonably modern browser. That’s right, this page can actually beepity-<a href="https://twitter.com/beep">beep</a>-itself using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Audio API</a> on supported devices (don’t forget to turn the volume up. Or down, if you’re in the quiet compartment of the train), without even having a functioning screen.</li>
-      </ul>
-    </div>
+        <h1 aria-label="A dashingly responsive web page">
+          <span class="inv" aria-hidden="true">A</span>
+          <span aria-hidden="true">dashingly</span>
+          <span class="inv" aria-hidden="true">responsive</span>
+          <span aria-hidden="true">web page</span>
+        </h1>
+        <div class="prose">
+          <p>We can do beautiful work with the existing capabilities of the web platform. But the beauty does not lie just in the visual appearance of our sites, because the web is not just visual.</p>
+          <p>Take this simple web page, for instance. It is not just responsive on the standard ”240px plus” screens of smartphones (watches?) and up to the what-have-you widths of tablets, laptops, TVs and desktop screens.</p>
+          <p>No, this one goes further: it actually sort of works on screens of <code>0px</code> and up.</p>
+          <hr>
+          <p><i>”Now hold on a minute”</i> I hear you say, <i>”since the web is not just visual, any web page can work as a printed page, or using a screen reader.”</i></p>
+          <p>True. But this one acheives its readability on viewports with a width of about <code>2em</code> and up <em>visually</em>, and does not require a screen reader or printer to work without a screen. Sort of.</p>
+          <p>Let me explain:</p>
+          <ul>
+            <li>On viewports less than <code>240px</code> in width, the text contents of the page are converted to <a href="https://en.wikipedia.org/wiki/Morse_code">Morse code</a>. This encoded is then displayed vertically instead of the page content. This only requires about one em of space. I can’t imagine what kind of smartphone would have a screen like that, but hey—nobody saw the iPhone coming either. Use your favorite devtools to resize down to that width, or hit <a href="#cheatmode">cheat mode</a>.</li>
+            <li>You can also hit the play button below to read that Morse code version of the page in audio form, provided you are using a reasonably modern browser. That’s right, this page can actually beepity-<a href="https://twitter.com/beep">beep</a>-itself using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Audio API</a> on supported devices (don’t forget to turn the volume up. Or down, if you’re in the quiet compartment of the train), without even having a functioning screen.</li>
+        </ul>
+      </div>
       
     
     
-  </div>
+    </div>
 
-  <div id="hold-the-telegraph"></div>
-  
+    <div id="hold-the-telegraph"></div>
+  </main>
   <footer>
     <p>Typed by Emil Björklund (<a href="https://twitter.com/thatemil">@thatemil</a>)</p>
   </footer>
   
   
   <script id="buttons" type="text/x-template">
-    <div id="controls">
-      <button id="play">Play</button>
-      <button id="stop">Stop</button>
-    </div>
+     <ul id="controls" aria-label="Control Morse code mode">
+       <li><button id="play">Play audio</button></li>
+       <li><button id="stop">Stop audio</button></li>
+       <li><a href="#cheatmode">Activate Cheat Mode for text</a></li>
+     </ul>
   </script>
 
   <script src="beep.js"></script>
