@@ -48,10 +48,11 @@
     ',': '‒‒••‒‒',
     ':': '‒‒•••',
     '?': '••‒‒••',
+    '!': '••‒‒•',
     '’': '•‒‒‒‒•',
-    '‒': '‒••••‒',
-    '–': '‒••••‒',
     '—': '‒••••‒',
+    '–': '‒••••‒',
+    '-': '‒••••‒',
     '/': '‒••‒•',
     '(': '‒•‒‒•‒',
     ')': '‒•‒‒•‒',
@@ -97,7 +98,8 @@
     for (var i = 0, len = text.length; i < len; i++) {
       // If it's a character we can beep, start building the morse string.
       if (!/\s/.test(text[i])) {
-        morse  += ' ' + charCodes[text[i].toLowerCase()];
+        morse  += ' ' + charCodes[text[i].toLowerCase()] || '';
+        console.log(charCodes[text[i].toLowerCase()], text[i].toLowerCase());
       } else {
         // unrecognized chars just become a longer pause.
         morse += '  ';
