@@ -221,21 +221,9 @@
 
     h1 :nth-child(3) {
       display: inline-block;
-      text-shadow: 0 -.05em 0 #fff,
-                   .05em -.05em 0 #fff,
-                   -.05em -.05em 0 #fff,
-                   -.05em -.035em 0 #fff,
-                   -.05em -.025em 0 #fff,
-                   -.05em .05em 0 #fff,
-                   -.05em .0 0 #fff,
-                   .05em .05em 0 #fff,
-                   .06em 0 0 #fff,
-                   .05em 0.0125em 0 #fff,
-                   .05em 0.025em 0 #fff,
-                   .05em 0.035em 0 #fff,
-                   .05em -.035em 0 #fff,
-                   .05em -.025em 0 #fff,
-                   .05em -.0125em 0 #fff;
+      -webkit-filter: url(#outlineglow);
+      -moz-filter: url(#outlineglow);
+      filter: url(#outlineglow);
       width: 100%;
       font-size: 1.48em;
       line-height: 1;
@@ -359,5 +347,17 @@
   </script>
 
   <script src="beep.js"></script>
+
+  <svg height="0">
+    <filter id="outlineglow">
+      <feMorphology in="SourceAlpha" operator="dilate" primitiveUnits="objectBoundingBox" radius="5" result="outline" />
+      <feFlood flood-color="white" result="chroma"/>
+      <feComposite in="chroma" in2="outline" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </svg>
 </body>
 </html>
