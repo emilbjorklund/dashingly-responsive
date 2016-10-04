@@ -132,13 +132,14 @@
     }
     #controls {
       background-color: #FAF3E7;
-      border-radius: 99em;
+      border-radius: 4.5em;
       text-align: center;
       margin: 1.4em 0;
       padding: 1.4em;
       max-width: 38em;
       line-height: 3;
     }
+
     #controls li {
       list-style: none;
       display: inline-block;
@@ -148,6 +149,20 @@
     }
     #controls li+li:not(:first-child) {
       margin-left: 1.4em;
+    }
+    @supports (flex-wrap: wrap) {
+      #controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      #controls li {
+        margin: 0 1.4em;
+        flex: 1 0 14em;
+      }
+      #controls button {
+        width: 100%;
+      }
     }
     /* let's draw the characters ”www” using morse code, in gradients! */
     hr {
