@@ -4,6 +4,7 @@
     return;
   }
   var get = function (s) {return document.querySelector.call(document, s);};
+  var actx;
   var charCodes = {
     a: '•‒',
     b: '‒•••',
@@ -62,9 +63,40 @@
     '@': '•‒‒•‒•'
   };
 
-  function start() {
-    var actx = new (window.AudioContext || window.webkitAudioContext)(),
-        osc = actx.createOscillator();
+  // iOS Audio unlock function, from https://github.com/parasyte/howler.js/blob/e8dc41ce498f28cdf1c1de631b597f5d719fe42b/src/howler.core.js
+  var _iOSEnabled = false;
+
+  // Call this method on touch start to create and play a buffer,
+  // then check if the audio actually played to determine if
+  // audio has now been unlocked on iOS.
+  var unlock = function() {
+    // Create an empty buffer.
+    var buffer = actx.createBuffer(1, 1, 22050);
+    var source = actx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(actx.destination);
+
+    // Play the empty buffer.
+    if (typeof source.start === 'undefined') {
+      source.noteOn(0);
+    } else {
+      source.start(0);
+    }
+
+    // Setup a timeout to check that we are unlocked on the next event loop.
+    setTimeout(function() {
+      if ((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
+        // Update the unlocked state and prevent this check from happening again.
+        _iOSEnabled = true;
+        // Remove the touch start listener.
+        document.removeEventListener('touchend', unlock, false);
+      }
+    }, 0);
+  };
+
+
+  function start(actx) {
+    var osc = actx.createOscillator();
         out = actx.createGain();
     if ('start' in osc) {
       // Standard Audio API method.
@@ -88,15 +120,13 @@
       out.gain.value = 0;
     }, t)
   }
-
-
   
   function setUpMorse() {
     var text = document.title + ' '+document.body.innerText;
     var morse = "";
 
     for (var i = 0, len = text.length; i < len; i++) {
-      // If it's a character we can beep, start building the morse string.
+      // If it's a character we can translate, start building the morse string.
       if (!/\s/.test(text[i])) {
         morse  += ' ' + (charCodes[text[i].toLowerCase()] || '');
       } else {
@@ -162,7 +192,8 @@
   setUpCheatLink();
 
   if ('AudioContext' in window || 'webkitAudioContext' in window) {
-    var player = start();
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    var player = start(actx);
     setUpButtons();
     get('#stop').addEventListener('click', function () {
       player.gain.value = 0;
@@ -177,9 +208,7 @@
     }, false);
     // Hackish: Interaction is required before Safari iOS lets
     // you use the Audio API.
-    get('body').addEventListener('touchend', function () {
-      player = start();
-    }, false);
+    document.addEventListener('touchend', unlock, false);
   }
   
 }());
