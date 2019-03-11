@@ -203,7 +203,9 @@
 
     get('#play').addEventListener('click', function () {
       if (!isPlaying) {
-        tick(player, morse, 0);
+        actx.resume().then(function () {
+          tick(player, morse, 0);
+        });
       }
     }, false);
     // Hackish: Interaction is required before Safari iOS lets
